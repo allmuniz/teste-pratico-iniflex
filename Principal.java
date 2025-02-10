@@ -49,7 +49,7 @@ public class Principal {
         System.out.println("\n");
 
         // Funcionários maiores de idade
-        imprimirMaioresDeIdade(listaDeFuncionarios);
+        imprimirMaiorIdade(listaDeFuncionarios);
 
         System.out.println("\n");
 
@@ -100,12 +100,14 @@ public class Principal {
                 .forEach(System.out::println);
     }
 
-    public static void imprimirMaioresDeIdade(List<Funcionario> listaDeFuncionarios) {
-        listaDeFuncionarios.stream()
-                .filter(f -> Period.between(f.getDataNascimento(), LocalDate.now()).getYears() >= 18)
-                .forEach(f -> {
-                    int idade = Period.between(f.getDataNascimento(), LocalDate.now()).getYears();
-                    System.out.println("Nome: " + f.getNome() + " | Idade: " + idade);
-                });
+    public static void imprimirMaiorIdade(List<Funcionario> listaDeFuncionarios) {
+        Optional<Funcionario> funcionarioMaisVelho = listaDeFuncionarios.stream()
+                .min(Comparator.comparing(Pessoa::getDataNascimento));
+
+        funcionarioMaisVelho.ifPresent(f -> {
+            int idade = Period.between(f.getDataNascimento(), LocalDate.now()).getYears();
+            System.out.println("Funcionário mais velho:");
+            System.out.println("Nome: " + f.getNome() + " | Idade: " + idade);
+        });
     }
 }
