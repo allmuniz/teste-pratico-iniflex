@@ -48,7 +48,7 @@ public class Principal {
 
         System.out.println("\n");
 
-        // Funcionários maiores de idade
+        // Funcionario com a maior idade
         imprimirMaiorIdade(listaDeFuncionarios);
 
         System.out.println("\n");
